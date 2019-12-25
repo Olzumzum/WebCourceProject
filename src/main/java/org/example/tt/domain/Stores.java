@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
+/**
+ * объект хранит информацию о существующих складах
+ */
 @Entity
 public class Stores {
     @Id
