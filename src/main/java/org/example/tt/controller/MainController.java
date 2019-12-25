@@ -1,11 +1,10 @@
 package org.example.tt.controller;
 
 import org.example.tt.domain.Stores;
-import org.example.tt.domain.User;
 import org.example.tt.repos.StoresRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,17 +23,25 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model) {
-        Iterable<Stores> stores = storesRepo.findAll();
+    public String main(@RequestParam(required = false, defaultValue = "") String nameFilter,
+            Model model) {
+        Iterable<Stores> stores;
 
-        model.put("stores", stores);
+        if (nameFilter != null && !nameFilter.isEmpty()) {
+            stores = storesRepo.findByNameStore(nameFilter);
+        } else {
+            stores = storesRepo.findAll();
+        }
+
+        model.addAttribute("stores", stores);
+        model.addAttribute("nameFilter", nameFilter);
         return "main";
     }
 
     @PostMapping("/main")
     public String addStore(
-            @RequestParam String nameStore, @
-            RequestParam String addressStore,
+            @RequestParam String nameStore,
+            @RequestParam String addressStore,
             Map<String, Object> model) {
         Stores store = new Stores(nameStore, addressStore);
         storesRepo.save(store);
@@ -44,17 +51,5 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping("/filter")
-    public String filter(@RequestParam String nameFilter, Map<String, Object> model) {
-        Iterable<Stores> stores;
 
-        if (nameFilter != null && !nameFilter.isEmpty()) {
-            stores = storesRepo.findByNameStore(nameFilter);
-        } else {
-            stores = storesRepo.findAll();
-        }
-
-        model.put("stores", stores);
-        return "main";
-    }
 }
