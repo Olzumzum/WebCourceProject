@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * объект хранит информацию о существующих складах
@@ -49,4 +50,15 @@ public class Stores {
     public void setAddressStore(String addressStore) {
         this.addressStore = addressStore;
     }
+
+//    @ManyToMany(mappedBy = "stores")
+//    private Collection<StockAvailability> stockAvailabilities;
+//
+//    public Collection<StockAvailability> getStockAvailabilities() {
+//        return stockAvailabilities;
+//    }
+//
+//    public void setStockAvailabilities(Collection<StockAvailability> stockAvailabilities) {
+//        this.stockAvailabilities = stockAvailabilities;
+//    }
 }

@@ -1,9 +1,6 @@
 package org.example.tt.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * бин, который хранит в себе информацию
@@ -11,32 +8,40 @@ import javax.persistence.Id;
  */
 @Entity
 public class StockAvailability {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idStockAvailability;
 
-    private int idStore;
+//    @OneToMany(fetch = FetchType.EAGER, targetEntity = Stores.class)
+//    @JoinColumn(name = "id_store")
+//    private Stores stores;
 
     private int amount;
 
     public StockAvailability() {
+
     }
 
-    public int getIdStockAvailability() {
+    public StockAvailability(int amount) {
+        this.amount = amount;
+    }
+
+    public int getId() {
         return idStockAvailability;
     }
 
-    public void setIdStockAvailability(int idStockAvailability) {
-        this.idStockAvailability = idStockAvailability;
+    public void setId(int id) {
+        this.idStockAvailability = id;
     }
 
-    public int getIdStore() {
-        return idStore;
-    }
-
-    public void setIdStore(int idStore) {
-        this.idStore = idStore;
-    }
+//    public Stores getStores() {
+//        return stores;
+//    }
+//
+//    public void setStores(Stores stores) {
+//        this.stores = stores;
+//    }
 
     public int getAmount() {
         return amount;
