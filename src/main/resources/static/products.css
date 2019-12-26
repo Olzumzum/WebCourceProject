@@ -4,8 +4,10 @@
 
 .content {
     width: 90%;
-    background-color: #408DD2;
 
+    margin: 10px;
+    padding: 10px;
+    padding-left: 20px;
 }
 
 .row {
@@ -23,8 +25,9 @@
     padding: 20px;
     padding-bottom: 80px;
     border: solid 10px #e6e6e6;
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
+    border-radius: 8px;
 }
 
 .name_product {
@@ -33,6 +36,27 @@
 }
 
 .image_product {
-    width: 150px;
-    height: 150px;
+    width: 210px;
+    height: 210px;
+    text-align: center;
+    border: .8px inset #5B5B5B;
+    border-radius: 8px;
+}
+
+.edit_product{
+    margin-bottom: 15px;
+
+}
+
+.property_product_item {
+    color: black;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.edit_product :hover {
+    color: #FFF400;
+    -webkit-text-stroke-width: 0.1px;
+    -webkit-text-stroke-color: #2C3E50;
+
 }

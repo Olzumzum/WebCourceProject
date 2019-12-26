@@ -1,6 +1,5 @@
 <#macro login path isRegisterForm>
     <form action="${path}" method="post" class="login_form">
-        <span id="title_login"> Авторизация </span>
         <div class="row_login">
             <label> User Name : <input type="text" name="username"/> </label>
         </div>

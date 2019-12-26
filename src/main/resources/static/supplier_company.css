@@ -1,0 +1,21 @@
+/** Стиль каждого элемента продукции */
+td, th {
+    padding: 10px;
+}
+
+table {
+    text-align: right;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    border-radius:  5px;
+}
+
+tr:nth-of-type(odd) {
+    background-color: bisque;
+}
+tr:nth-of-type(even) {
+    background-color: white;
+}

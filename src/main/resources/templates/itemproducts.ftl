@@ -14,17 +14,44 @@
         <div class="add_product">
             <div id="title_submenu"> Добавить продукт</div>
             <form method="post" enctype="multipart/form-data">
+
                 <div class="row_form">
                     <label> Название продукта </label>
-                    <input type="text" name="nameStore" class="subparagraph_submenu"/>
+                    <input type="text" name="nameitemProduct" class="subparagraph_submenu"/>
                 </div>
+
                 <div class="row_form">
-                    <label> В данном случае адресс</label>
-                    <input type="text" name="addressStore" class="subparagraph_submenu"/>
+                    <label> Цена </label>
+                    <input type="number" name="price" class="subparagraph_submenu"/>
                 </div>
+
                 <div class="row_form">
                     <label> Изображение</label>
                     <input type="file" name="file"/>
+                </div>
+
+                <div class="row_form">
+                    <label>
+                        <select>
+                            <option disabled>Компания поставщик </option>
+                            <#list suppliers as supplier>
+                                <option class="subparagraph_submenu">
+                                   <b>${supplier.nameSupplier}</b>
+                                </option>
+                            </#list>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="row_form">
+                    <label> Возрастная категория </label>
+                    <select>
+                        <#list agecategories as agecategory>
+                            <option class="subparagraph_submenu">
+                                <b>${agecategory.toString()}</b>
+                            </option>
+                        </#list>
+                    </select>
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <input type="submit" value="Отправить" class="button_add_file"/>
@@ -33,8 +60,8 @@
 
         <div class="content">
             <div> Список складов</div>
-            <#list stores as store>
-                <#if store.idStore % 2 == 0>
+            <#list itemproducts as itemProduct>
+                <#if itemProduct.idItemProduct % 2 == 0>
                     <span style="visibility: hidden">Строчка </span>
                 </#if>
                 <div class="item_product">
@@ -42,22 +69,24 @@
 
                         <div class="edit_product">
                             <span>
-                                <a href="/product/${store.idStore}"
+                                <a href="/product/${itemProduct.idItemProduct}"
                                    class="property_product_item"> Редактировать продукт </a>
                             </span>
                             <span>
-                                <a href="/product/${store.idStore}" class="property_product_item"> Удалить продукт </a>
+                                <a href="/product/${itemProduct.idItemProduct}" class="property_product_item"> Удалить продукт </a>
                             </span>
                         </div>
 
                         <div>
-                            <#if store.filename??>
-                                <img class="image_product" src="/img/${store.filename}">
+                            <#if itemProduct.fileName??>
+                                <img class="image_product" src="/img/${itemProduct.fileName}">
                             </#if>
                         </div>
-                        <b>${store.idStore}</b>
-                        <b class="name_product">${store.nameStore}</b>
-                        <b>${store.addressStore}</b>
+                        <b>${itemProduct.idItemProduct}</b>
+                        <b class="name_product">${itemProduct.nameItemProduct}</b>
+                        <b>${itemProduct.price}</b>
+                        <b>${itemProduct.supplierCompany}</b>
+                        <b>${itemProduct.ageCategorySet}</b>
                     </div>
                 </div>
             <#else>
