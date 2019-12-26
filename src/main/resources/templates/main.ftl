@@ -3,9 +3,6 @@
 
 <@C.page>
     <div>
-        <@l.logout />
-    </div>
-    <div>
         <form method="post" enctype="multipart/form-data">
             <input type="text" name="nameStore"/>
             <input type="text" name="addressStore"/>

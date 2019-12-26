@@ -4,5 +4,5 @@
 <@C.page>
 Добавить нового пользователя
 ${message?if_exists}
-<@l.login "/registration" />
+<@l.login "/registration" true/>
 </@C.page>
