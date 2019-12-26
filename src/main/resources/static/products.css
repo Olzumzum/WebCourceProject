@@ -1,0 +1,38 @@
+.container {
+    margin-top: 80px;
+}
+
+.content {
+    width: 90%;
+    background-color: #408DD2;
+
+}
+
+.row {
+    margin: 10px;
+    display: table-row;
+}
+
+.item_product {
+    display: table-cell;
+
+}
+
+.content_item_product {
+    margin: 20px;
+    padding: 20px;
+    padding-bottom: 80px;
+    border: solid 10px #e6e6e6;
+    width: 200px;
+    height: 200px;
+}
+
+.name_product {
+    padding-left: 8px;
+    display: table;
+}
+
+.image_product {
+    width: 150px;
+    height: 150px;
+}

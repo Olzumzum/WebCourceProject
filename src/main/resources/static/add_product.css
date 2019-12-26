@@ -1,0 +1,38 @@
+.add_product {
+    width: 20%;
+    height: 300px;
+
+    margin: 10px;
+    padding: 20px;
+    float: left;
+    border: 1px solid black;
+    border-radius:  10px;
+
+    text-align: left;
+}
+
+.row_form {
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #797979;
+    border-radius: 10px;
+}
+
+.title_submenu {
+    margin: 0 auto;
+    padding-top: 60px;
+    font-size: 20px;
+}
+
+.subparagraph_submenu {
+    margin: 5px;
+}
+
+.button_add_file{
+    width: 120px;
+    height: 40px;
+    font-size: 15px;
+    border-radius:  10px;
+    margin-left: auto;
+    margin-right: auto;
+}
