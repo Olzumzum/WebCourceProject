@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="static/main_style.css">
     <link rel="stylesheet" href="static/nav_main_style.css">
+    <link rel="stylesheet" href="static/authorization.css">
     <title>Title</title>
 </head>
 <body>
