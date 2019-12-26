@@ -19,12 +19,22 @@ public class Stores {
 
     private String addressStore;
 
+    private String filename;
+
     public Stores() {
     }
 
     public Stores(String nameStore, String addressStore){
         this.nameStore = nameStore;
         this.addressStore = addressStore;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public int getIdStore() {
