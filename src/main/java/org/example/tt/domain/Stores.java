@@ -19,8 +19,6 @@ public class Stores {
 
     private String addressStore;
 
-    private String filename;
-
     public Stores() {
     }
 
@@ -29,13 +27,6 @@ public class Stores {
         this.addressStore = addressStore;
     }
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
 
     public int getIdStore() {
         return idStore;
@@ -61,14 +52,5 @@ public class Stores {
         this.addressStore = addressStore;
     }
 
-//    @ManyToMany(mappedBy = "stores")
-//    private Collection<StockAvailability> stockAvailabilities;
-//
-//    public Collection<StockAvailability> getStockAvailabilities() {
-//        return stockAvailabilities;
-//    }
-//
-//    public void setStockAvailabilities(Collection<StockAvailability> stockAvailabilities) {
-//        this.stockAvailabilities = stockAvailabilities;
-//    }
+
 }

@@ -13,15 +13,16 @@
         <ul>
             <li><a href="/" class="item_nav"> Home </a></li>
         </ul>
-        <ul>
-            <li><a href="/main" class="item_nav"> Информация о складах</a></li>
-        </ul>
 
         <ul>
             <#if isAdmin>
                 <li><a href="/user" class="item_nav"> Информация о пользователях</a></li>
                 <li><a href="/suppliercompany" class="item_nav"> Добавить поставщика </a></li>
                 <li><a href="/itemproducts" class="item_nav"> Продукция </a></li>
+            </#if>
+            <#if isUser>
+                <li><a href="/itemproducts" class="item_nav"> Продукция </a></li>
+                <li><a href="/stores" class="item_nav"> Склады </a></li>
             </#if>
         </ul>
     </div>

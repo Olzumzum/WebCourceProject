@@ -1,5 +1,6 @@
 <#import "parts/common.ftl" as C >
 <#import "parts/login.ftl" as l >
+<#include "parts/security.ftl">
 
 <@C.page>
     <div class="form_search">
@@ -11,52 +12,54 @@
     </div>
 
     <div class="container">
-        <div class="add_product">
-            <div id="title_submenu"> Добавить продукт</div>
-            <form method="post" enctype="multipart/form-data">
+        <#if isAdmin>
+            <div class="add_product">
+                <div id="title_submenu"> Добавить продукт</div>
+                <form method="post" enctype="multipart/form-data">
 
-                <div class="row_form">
-                    <label> Название продукта </label>
-                    <input type="text" name="nameitemProduct" class="subparagraph_submenu"/>
-                </div>
+                    <div class="row_form">
+                        <label> Название продукта </label>
+                        <input type="text" name="nameitemProduct" class="subparagraph_submenu"/>
+                    </div>
 
-                <div class="row_form">
-                    <label> Цена </label>
-                    <input type="number" name="price" class="subparagraph_submenu"/>
-                </div>
+                    <div class="row_form">
+                        <label> Цена </label>
+                        <input type="number" name="price" class="subparagraph_submenu"/>
+                    </div>
 
-                <div class="row_form">
-                    <label> Изображение</label>
-                    <input type="file" name="file"/>
-                </div>
+                    <div class="row_form">
+                        <label> Изображение</label>
+                        <input type="file" name="file"/>
+                    </div>
 
-                <div class="row_form">
-                    <label>
-                        <select name="supplier">
-                            <option disabled>Компания поставщик</option>
-                            <#list suppliers as supplier>
-                                <option value="${supplier.idSupplier}" class="subparagraph_submenu">
-                                    ${supplier.nameSupplier}
+                    <div class="row_form">
+                        <label>
+                            <select name="supplier">
+                                <option disabled>Компания поставщик</option>
+                                <#list suppliers as supplier>
+                                    <option value="${supplier.idSupplier}" class="subparagraph_submenu">
+                                        ${supplier.nameSupplier}
+                                    </option>
+                                </#list>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="row_form">
+                        <label> Возрастная категория </label>
+                        <select name="ageCategory">
+                            <#list agecategories as agecategory>
+                                <option class="subparagraph_submenu">
+                                    <b>${agecategory.toString()}</b>
                                 </option>
                             </#list>
                         </select>
-                    </label>
-                </div>
-
-                <div class="row_form">
-                    <label> Возрастная категория </label>
-                    <select name="ageCategory">
-                        <#list agecategories as agecategory>
-                            <option class="subparagraph_submenu">
-                                <b>${agecategory.toString()}</b>
-                            </option>
-                        </#list>
-                    </select>
-                </div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input type="submit" value="Отправить" class="button_add_file"/>
-            </form>
-        </div>
+                    </div>
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                    <input type="submit" value="Отправить" class="button_add_file"/>
+                </form>
+            </div>
+        </#if>
 
         <div class="content">
             <div> Список всей продукции</div>
@@ -67,16 +70,18 @@
                 <div class="item_product">
                     <div class="content_item_product">
 
-                        <div class="edit_product">
+                        <#if isAdmin>
+                            <div class="edit_product">
                             <span>
                                 <a href="/itemProductEdit/${itemProduct.idItemProduct}"
                                    class="property_product_item"> Редактировать продукт </a>
                             </span>
-                            <span>
+                                <span>
                                 <a href="/itemproducts/${itemProduct.idItemProduct}"
                                    class="property_product_item"> Удалить продукт </a>
                             </span>
-                        </div>
+                            </div>
+                        </#if>
 
                         <div>
                             <#if itemProduct.fileName??>
