@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,7 +23,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/itemproducts")
 public class ItemProductController {
     @Autowired
     private ItemProductRepo itemProductRepo;
@@ -31,13 +33,13 @@ public class ItemProductController {
     @Value("${upload.path}")
     private String uploadPath;
 
-    @PostMapping
+    @PostMapping("/itemproducts")
     public String addSupplier(
             @RequestParam String nameitemProduct,
             @RequestParam int price,
             @RequestParam("file") MultipartFile file,
-            @RequestParam(required = false) String ageCategory,
-            @RequestParam(required = false) String supplier,
+            @RequestParam String ageCategory,
+            @RequestParam String supplier,
             Model model
     ) throws IOException {
         int idSuppier = Integer.parseInt(supplier);
@@ -86,7 +88,7 @@ public class ItemProductController {
         return "redirect:/itemproducts";
     }
 
-    @GetMapping
+    @GetMapping("/itemproducts")
     public String getSupplierList(Model model) {
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
@@ -98,18 +100,73 @@ public class ItemProductController {
         return "itemproducts";
     }
 
-    @GetMapping("{itemId}")
-    public String deleteProduct(@PathVariable int itemId, Model model){
+    @GetMapping("/itemproducts/{itemId}")
+    public String deleteProduct(@PathVariable int itemId, Model model) {
         ItemProduct itemProduct = null;
         Iterable<ItemProduct> itemProducts = itemProductRepo.findAll();
 
-        for (ItemProduct item : itemProducts){
-            if(itemId == item.getIdItemProduct())
+        for (ItemProduct item : itemProducts) {
+            if (itemId == item.getIdItemProduct())
                 itemProduct = item;
         }
 
         itemProductRepo.delete(itemProduct);
         model.addAttribute("itemproducts", itemProductRepo.findAll());
-      return "redirect:/itemproducts";
+        return "redirect:/itemproducts";
+    }
+
+    @GetMapping("/itemProductEdit/{idProduct}")
+    public String editItemProduct(@PathVariable int idProduct, Model model) {
+        ItemProduct itemProduct = itemProductRepo.findItemProductByIdItemProduct(idProduct);
+
+        model.addAttribute("itemProduct", itemProduct);
+        model.addAttribute("suppliers", supplierCompanyRepo.findAll());
+        model.addAttribute("agecategories", AgeCategory.values());
+        return "itemproductedit";
+    }
+
+    @PostMapping("/itemProductEdit/{idProduct}")
+    public String saveChangesItemProduct(
+            @PathVariable int idProduct,
+            @RequestParam String nameitemProduct,
+            @RequestParam int price,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam(required = false) String ageCategory,
+            @RequestParam(required = false) String supplier,
+            Model model
+    ) throws IOException {
+
+        ItemProduct itemProduct = itemProductRepo.findItemProductByIdItemProduct(idProduct);
+        itemProduct.setNameItemProduct(nameitemProduct);
+        itemProduct.setPrice(price);
+        itemProduct.setAgeCategory(ageCategory);
+
+        /** получаем путь и записываем имя изображения */
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+            itemProduct.setFileName(resultFilename);
+        }
+
+        int idSuppier = Integer.parseInt(supplier);
+        /**получаем список всех поставщиков */
+        Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
+        /** записываем поставщика */
+        for (SupplierCompany s : supplierCompanies) {
+            if (s.getIdSupplier() == idSuppier)
+                itemProduct.setSupplierCompany(s);
+        }
+
+        itemProductRepo.save(itemProduct);
+        model.addAttribute("itemproducts", itemProductRepo.findAll());
+        return "redirect:/itemproducts";
     }
 }

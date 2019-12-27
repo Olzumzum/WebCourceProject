@@ -69,11 +69,12 @@
 
                         <div class="edit_product">
                             <span>
-                                <a href="/itemproducts/${itemProduct.idItemProduct}"
+                                <a href="/itemProductEdit/${itemProduct.idItemProduct}"
                                    class="property_product_item"> Редактировать продукт </a>
                             </span>
                             <span>
-                                <a href="/itemproducts/${itemProduct.idItemProduct}" class="property_product_item"> Удалить продукт </a>
+                                <a href="/itemproducts/${itemProduct.idItemProduct}"
+                                   class="property_product_item"> Удалить продукт </a>
                             </span>
                         </div>
 
