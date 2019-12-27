@@ -33,10 +33,10 @@
                 <div class="row_form">
                     <label>
                         <select name="supplier">
-                            <option disabled>Компания поставщик </option>
+                            <option disabled>Компания поставщик</option>
                             <#list suppliers as supplier>
                                 <option value="${supplier.idSupplier}" class="subparagraph_submenu">
-                                   ${supplier.nameSupplier}
+                                    ${supplier.nameSupplier}
                                 </option>
                             </#list>
                         </select>
@@ -45,7 +45,7 @@
 
                 <div class="row_form">
                     <label> Возрастная категория </label>
-                    <select>
+                    <select name="ageCategory">
                         <#list agecategories as agecategory>
                             <option class="subparagraph_submenu">
                                 <b>${agecategory.toString()}</b>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="content">
-            <div> Список складов</div>
+            <div> Список всей продукции</div>
             <#list itemproducts as itemProduct>
                 <#if itemProduct.idItemProduct % 2 == 0>
                     <span style="visibility: hidden">Строчка </span>
@@ -69,11 +69,11 @@
 
                         <div class="edit_product">
                             <span>
-                                <a href="/product/${itemProduct.idItemProduct}"
+                                <a href="/itemproducts/${itemProduct.idItemProduct}"
                                    class="property_product_item"> Редактировать продукт </a>
                             </span>
                             <span>
-                                <a href="/product/${itemProduct.idItemProduct}" class="property_product_item"> Удалить продукт </a>
+                                <a href="/itemproducts/${itemProduct.idItemProduct}" class="property_product_item"> Удалить продукт </a>
                             </span>
                         </div>
 
@@ -82,11 +82,26 @@
                                 <img class="image_product" src="/img/${itemProduct.fileName}">
                             </#if>
                         </div>
-                        <b>${itemProduct.idItemProduct}</b>
-                        <b class="name_product">${itemProduct.nameItemProduct}</b>
-                        <b>${itemProduct.price}</b>
-                        <b>${itemProduct.supplierCompany}</b>
-                        <b>${itemProduct.ageCategorySet}</b>
+                        <div>
+                            <label> Идентификатор: </label>
+                            <b>${itemProduct.idItemProduct}</b>
+                        </div>
+                        <div>
+                            <label> Название: </label>
+                            <b class="name_product">${itemProduct.nameItemProduct}</b>
+                        </div>
+                        <div>
+                            <label> Стоимость: </label>
+                            <b>${itemProduct.price}</b>
+                        </div>
+                        <div>
+                            <label> Поставщик: </label>
+                            <b>${itemProduct.supplierCompany.nameSupplier}</b>
+                        </div>
+                        <div>
+                            <label> Возрастная категория: </label>
+                            <b>${itemProduct.ageCategory}</b>
+                        </div>
                     </div>
                 </div>
             <#else>

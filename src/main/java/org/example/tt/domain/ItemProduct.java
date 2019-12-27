@@ -16,8 +16,7 @@ public class ItemProduct {
     private int price;
     private String fileName;
 
-    @Enumerated(EnumType.STRING)
-    private AgeCategory ageCategorySet;
+    private String ageCategory;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id")
@@ -63,12 +62,12 @@ public class ItemProduct {
         this.price = price;
     }
 
-    public AgeCategory getAgeCategorySet() {
-        return ageCategorySet;
+    public String getAgeCategory() {
+        return ageCategory;
     }
 
-    public void setAgeCategorySet(AgeCategory ageCategorySet) {
-        this.ageCategorySet = ageCategorySet;
+    public void setAgeCategory(String ageCategory) {
+        this.ageCategory = ageCategory;
     }
 
     public SupplierCompany getSupplierCompany() {

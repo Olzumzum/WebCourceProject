@@ -14,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class ItemProductController {
     @Autowired
     private ItemProductRepo itemProductRepo;
+
     @Autowired
     private SupplierCompanyRepo supplierCompanyRepo;
 
@@ -33,7 +36,7 @@ public class ItemProductController {
             @RequestParam String nameitemProduct,
             @RequestParam int price,
             @RequestParam("file") MultipartFile file,
-            @RequestParam Map<String, String> form,
+            @RequestParam(required = false) String ageCategory,
             @RequestParam(required = false) String supplier,
             Model model
     ) throws IOException {
@@ -41,6 +44,7 @@ public class ItemProductController {
 
         ItemProduct itemProduct = new ItemProduct(nameitemProduct, price);
 
+        /** получаем путь и записываем имя изображения */
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
 
@@ -58,7 +62,7 @@ public class ItemProductController {
 
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
-
+        /** записываем поставщика */
         for (SupplierCompany s : supplierCompanies) {
             if (s.getIdSupplier() == idSuppier)
                 itemProduct.setSupplierCompany(s);
@@ -69,22 +73,16 @@ public class ItemProductController {
                 .map(AgeCategory::name)
                 .collect(Collectors.toSet());
 
-        /** записываем поставщика */
-
-        for (String key : form.keySet()) {
-            if (ageCategories.contains(key)) {
-                itemProduct.setAgeCategorySet(AgeCategory.valueOf(key));
-            }
+        /** заполняем поле возраста */
+        for (String age : ageCategories) {
+            if (age.contains(ageCategory))
+                itemProduct.setAgeCategory(age);
         }
-        //itemProduct.setAgeCategorySet(Collections.singleton());
-//        itemProduct.setSupplierCompany();
+
 
         itemProductRepo.save(itemProduct);
 
         model.addAttribute("itemproducts", itemProductRepo.findAll());
-        model.addAttribute("suppliers", supplierCompanies);
-        //  model.addAttribute("agecategories", ageCategories);
-
         return "redirect:/itemproducts";
     }
 
@@ -98,5 +96,20 @@ public class ItemProductController {
         model.addAttribute("agecategories", AgeCategory.values());
 
         return "itemproducts";
+    }
+
+    @GetMapping("{itemId}")
+    public String deleteProduct(@PathVariable int itemId, Model model){
+        ItemProduct itemProduct = null;
+        Iterable<ItemProduct> itemProducts = itemProductRepo.findAll();
+
+        for (ItemProduct item : itemProducts){
+            if(itemId == item.getIdItemProduct())
+                itemProduct = item;
+        }
+
+        itemProductRepo.delete(itemProduct);
+        model.addAttribute("itemproducts", itemProductRepo.findAll());
+      return "redirect:/itemproducts";
     }
 }
