@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 public class ItemProductController {
     @Autowired
     private ItemProductRepo itemProductRepo;
+    @Autowired
     private SupplierCompanyRepo supplierCompanyRepo;
 
     @Value("${upload.path}")
@@ -84,7 +85,22 @@ public class ItemProductController {
 
     @GetMapping
     public String getSupplierList(Model model){
+        /**получаем список всех поставщиков */
+        Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
+
+        /**получаем список всех возрастных категорий */
+        Set<String> ageCategories = Arrays.stream(AgeCategory.values())
+                .map(AgeCategory::name)
+                .collect(Collectors.toSet());
+
+        /** записываем поставщика */
+
+
+
         model.addAttribute("itemproducts", itemProductRepo.findAll());
+        model.addAttribute("suppliers", supplierCompanies);
+        model.addAttribute("agecategories", ageCategories);
+
         return "itemproducts";
     }
 }
