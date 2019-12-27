@@ -89,11 +89,19 @@ public class ItemProductController {
     }
 
     @GetMapping("/itemproducts")
-    public String getSupplierList(Model model) {
+    public String getSupplierList(@RequestParam(required = false, defaultValue = "") String nameFilter, Model model) {
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
+        Iterable<ItemProduct> itemProducts = null;
 
-        model.addAttribute("itemproducts", itemProductRepo.findAll());
+        /** получаем список */
+        if (nameFilter != null && !nameFilter.isEmpty()) {
+            itemProducts = itemProductRepo.findItemProductByNameItemProduct(nameFilter);
+        } else {
+            itemProducts = itemProductRepo.findAll();
+        }
+
+        model.addAttribute("itemproducts", itemProducts);
         model.addAttribute("suppliers", supplierCompanies);
         model.addAttribute("agecategories", AgeCategory.values());
 

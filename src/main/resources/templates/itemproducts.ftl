@@ -4,7 +4,7 @@
 <@C.page>
     <div class="form_search">
         <div> Искать по названию склада</div>
-        <form method="get" action="/main">
+        <form method="get" action="/itemproducts">
             <input type="text" name="nameFilter" value="${nameFilter?if_exists}" class="search_field"/>
             <input type="submit" value="Поиск" class="button_search "/>
         </form>
