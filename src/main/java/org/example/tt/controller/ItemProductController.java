@@ -2,7 +2,6 @@ package org.example.tt.controller;
 
 import org.example.tt.domain.AgeCategory;
 import org.example.tt.domain.ItemProduct;
-import org.example.tt.domain.Role;
 import org.example.tt.domain.SupplierCompany;
 import org.example.tt.repos.ItemProductRepo;
 import org.example.tt.repos.SupplierCompanyRepo;
@@ -10,18 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -40,12 +33,13 @@ public class ItemProductController {
             @RequestParam String nameitemProduct,
             @RequestParam int price,
             @RequestParam("file") MultipartFile file,
-            @RequestParam AgeCategory ageCategory,
             @RequestParam Map<String, String> form,
-            @RequestParam("id_supplier") SupplierCompany supplierCompany,
+            @RequestParam(required = false) String supplier,
             Model model
     ) throws IOException {
-        ItemProduct itemProduct = new ItemProduct();
+        int idSuppier = Integer.parseInt(supplier);
+
+        ItemProduct itemProduct = new ItemProduct(nameitemProduct, price);
 
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -62,10 +56,13 @@ public class ItemProductController {
             itemProduct.setFileName(resultFilename);
         }
 
-        Iterable<ItemProduct> itemProducts = itemProductRepo.findAll();
-
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
+
+        for (SupplierCompany s : supplierCompanies) {
+            if (s.getIdSupplier() == idSuppier)
+                itemProduct.setSupplierCompany(s);
+        }
 
         /**получаем список всех возрастных категорий */
         Set<String> ageCategories = Arrays.stream(AgeCategory.values())
@@ -74,28 +71,27 @@ public class ItemProductController {
 
         /** записываем поставщика */
 
+        for (String key : form.keySet()) {
+            if (ageCategories.contains(key)) {
+                itemProduct.setAgeCategorySet(AgeCategory.valueOf(key));
+            }
+        }
+        //itemProduct.setAgeCategorySet(Collections.singleton());
+//        itemProduct.setSupplierCompany();
 
+        itemProductRepo.save(itemProduct);
 
-        model.addAttribute("itemproducts", itemProducts);
+        model.addAttribute("itemproducts", itemProductRepo.findAll());
         model.addAttribute("suppliers", supplierCompanies);
-        model.addAttribute("agecategories", ageCategories);
+        //  model.addAttribute("agecategories", ageCategories);
 
-        return "itemproducts";
+        return "redirect:/itemproducts";
     }
 
     @GetMapping
-    public String getSupplierList(Model model){
+    public String getSupplierList(Model model) {
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
-
-        /**получаем список всех возрастных категорий */
-//        Set<String> ageCategories = Arrays.stream(AgeCategory.values())
-//                .map(AgeCategory::name)
-//                .collect(Collectors.toSet());
-
-        /** записываем поставщика */
-
-
 
         model.addAttribute("itemproducts", itemProductRepo.findAll());
         model.addAttribute("suppliers", supplierCompanies);

@@ -16,10 +16,8 @@ public class ItemProduct {
     private int price;
     private String fileName;
 
-    @ElementCollection(targetClass = AgeCategory.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "age_category", joinColumns = @JoinColumn(name = "age_category_id"))
     @Enumerated(EnumType.STRING)
-    private Set<AgeCategory> ageCategorySet;
+    private AgeCategory ageCategorySet;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id")
@@ -28,12 +26,9 @@ public class ItemProduct {
     public ItemProduct() {
     }
 
-    public ItemProduct(String nameItemProduct, int price, String fileName, Set<AgeCategory> ageCategorySet, SupplierCompany supplierCompany) {
+    public ItemProduct(String nameItemProduct, int price) {
         this.nameItemProduct = nameItemProduct;
         this.price = price;
-        this.fileName = fileName;
-        this.ageCategorySet = ageCategorySet;
-        this.supplierCompany = supplierCompany;
     }
 
     public String getFileName() {
@@ -68,11 +63,11 @@ public class ItemProduct {
         this.price = price;
     }
 
-    public Set<AgeCategory> getAgeCategorySet() {
+    public AgeCategory getAgeCategorySet() {
         return ageCategorySet;
     }
 
-    public void setAgeCategorySet(Set<AgeCategory> ageCategorySet) {
+    public void setAgeCategorySet(AgeCategory ageCategorySet) {
         this.ageCategorySet = ageCategorySet;
     }
 

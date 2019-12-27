@@ -32,11 +32,11 @@
 
                 <div class="row_form">
                     <label>
-                        <select>
+                        <select name="supplier">
                             <option disabled>Компания поставщик </option>
                             <#list suppliers as supplier>
-                                <option class="subparagraph_submenu">
-                                   <b>${supplier.nameSupplier}</b>
+                                <option value="${supplier.idSupplier}" class="subparagraph_submenu">
+                                   ${supplier.nameSupplier}
                                 </option>
                             </#list>
                         </select>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
             <#else>
-                В базе нет ни одного склада
+                В базе нет ни одного продукта
             </#list>
         </div>
     </div>
