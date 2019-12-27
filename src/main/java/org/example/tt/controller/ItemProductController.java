@@ -89,9 +89,9 @@ public class ItemProductController {
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
 
         /**получаем список всех возрастных категорий */
-        Set<String> ageCategories = Arrays.stream(AgeCategory.values())
-                .map(AgeCategory::name)
-                .collect(Collectors.toSet());
+//        Set<String> ageCategories = Arrays.stream(AgeCategory.values())
+//                .map(AgeCategory::name)
+//                .collect(Collectors.toSet());
 
         /** записываем поставщика */
 
@@ -99,7 +99,7 @@ public class ItemProductController {
 
         model.addAttribute("itemproducts", itemProductRepo.findAll());
         model.addAttribute("suppliers", supplierCompanies);
-        model.addAttribute("agecategories", ageCategories);
+        model.addAttribute("agecategories", AgeCategory.values());
 
         return "itemproducts";
     }
