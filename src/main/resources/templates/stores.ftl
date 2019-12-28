@@ -6,7 +6,7 @@
     <div>
         <table>
             <colgroup>
-                <col id="store_id"
+                <col id="store_id">
                 <col id="store_name"/>
                 <col id="store_adress"/>
             </colgroup>

@@ -23,6 +23,7 @@
             <#if isUser>
                 <li><a href="/itemproducts" class="item_nav"> Продукция </a></li>
                 <li><a href="/stores" class="item_nav"> Склады </a></li>
+                <li><a href="/itemsale" class="item_nav"> Продажи </a></li>
             </#if>
         </ul>
     </div>
