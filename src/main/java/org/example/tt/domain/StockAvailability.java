@@ -1,53 +1,57 @@
 package org.example.tt.domain;
 
+import org.apache.catalina.Store;
+
 import javax.persistence.*;
 
-/**
- * бин, который хранит в себе информацию
- * на каком складе сколько одного itemProduct содержится
- */
 @Entity
 public class StockAvailability {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idStockAvailability;
+    private int idStockAvail;
 
-//    @OneToMany(fetch = FetchType.EAGER, targetEntity = Stores.class)
-//    @JoinColumn(name = "id_store")
-//    private Stores stores;
+    private int amountItemProduct;
 
-    private int amount;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_stores")
+    private Stores stores;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_item_product")
+    private ItemProduct itemProduct;
 
     public StockAvailability() {
-
     }
 
-    public StockAvailability(int amount) {
-        this.amount = amount;
+    public int getIdStockAvail() {
+        return idStockAvail;
     }
 
-    public int getId() {
-        return idStockAvailability;
+    public void setIdStockAvail(int idStockAvail) {
+        this.idStockAvail = idStockAvail;
     }
 
-    public void setId(int id) {
-        this.idStockAvailability = id;
+    public int getAmountItemProduct() {
+        return amountItemProduct;
     }
 
-//    public Stores getStores() {
-//        return stores;
-//    }
-//
-//    public void setStores(Stores stores) {
-//        this.stores = stores;
-//    }
-
-    public int getAmount() {
-        return amount;
+    public void setAmountItemProduct(int amountItemProduct) {
+        this.amountItemProduct = amountItemProduct;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public Stores getStore() {
+        return stores;
+    }
+
+    public void setStore(Stores stores) {
+        this.stores = stores;
+    }
+
+    public ItemProduct getItemProduct() {
+        return itemProduct;
+    }
+
+    public void setItemProduct(ItemProduct itemProduct) {
+        this.itemProduct = itemProduct;
     }
 }

@@ -1,27 +1,43 @@
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-</head>
-<body>
+<#import "parts/common.ftl" as C >
+<#import "parts/login.ftl" as l >
 
-<div>
-    <form action="/logout" method="post">
-        <input type="submit" value="Выйти"/>
-    </form>
-</div>
-<div>
-    <form method="post">
-        <input type="text" name="stores"/>
-        <input type="number" name="amount"/>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-        <input type="submit" value="Добавить" />
-    </form>
+<@C.page>
 
-<div> Список сообщений</div>
-{{#stockAvailability}}
-    <b>{{idStores}}</b>
-    <b>{{idStockAvailability}}</b>
-    <b>{{amount}}</b>
-{{/stockAvailability}}
-</body>
-</html>
+    <div>
+    <div>
+        <a href="/stores"> Подробная инфомрация о складах </a>
+    </div>
+    <div>
+        <table>
+            <colgroup>
+                <col id="item_name"/>
+                <col id="store_name"/>
+                <col id="amount"/>
+            </colgroup>
+
+            <thread>
+                <tr>
+                    <th scope="col"> Именование товара </th>
+                    <th scope="col"> Название склада </th>
+                    <th scope="col"> Количество </th>
+                </tr>
+            </thread>
+
+            <tbody>
+            <#list stockList as itemStock>
+                <tr>
+                    <td> ${itemStock.itemProduct.nameItemProduct}</td>
+                    <td> ${itemStock.store.nameStore}</td>
+                    <td> ${itemStock.amountItemProduct}</td>
+                </tr>
+            <#else>
+                <div>
+                    Товар пропал, плачьте
+                </div>
+            </#list>
+
+            </tbody>
+        </table>
+    </div>
+
+</@C.page>
