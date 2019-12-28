@@ -23,8 +23,16 @@ public class ItemSaleController {
     private ItemProductRepo itemProductRepo;
 
     @GetMapping("/allChecks")
-    public String getAllChecks(Model model) {
-        model.addAttribute("itemsales", itemSaleRepo.findAll());
+    public String getAllChecks(Model model,
+                               @RequestParam(required = false, defaultValue = "") String searchName,
+                               @RequestParam(required = false, defaultValue = "") String minPrice,
+                               @RequestParam(required = false, defaultValue = "") String maxPrice,
+                               @RequestParam(required = false, defaultValue = "") String minAmount,
+                               @RequestParam(required = false, defaultValue = "") String maxAmount) {
+
+        Iterable<ItemSale> itemSales = searchByCriterian(searchName, minAmount, maxAmount, minPrice, maxPrice);
+
+        model.addAttribute("itemsales", itemSales);
         model.addAttribute("itemproducts", itemProductRepo.findAll());
         return "allChecks";
     }
@@ -130,5 +138,33 @@ public class ItemSaleController {
         }
 
         return totaleSale;
+    }
+
+    /**
+     * поиск по критериям
+     */
+    private Iterable<ItemSale> searchByCriterian(String searchName, String minAmount, String maxAmount, String minPrice, String maxPrice) {
+        Iterable<ItemSale> itemSales = null;
+
+        /** поиск по имени */
+        if (searchName != null && !searchName.isEmpty()) {
+            itemSales = itemSaleRepo.findItemSaleByItemProduct_NameItemProduct(searchName);
+        } else {
+
+            if (minAmount != null && !minAmount.isEmpty() && maxAmount != null && !maxAmount.isEmpty()) {
+                int min = Integer.parseInt(minAmount);
+                int max = Integer.parseInt(maxAmount);
+                itemSales = itemSaleRepo.findDistinctByAmountBetween(min, max);
+            } else {
+                if (minPrice != null && !minPrice.isEmpty() && maxPrice != null && !maxPrice.isEmpty()) {
+                    int min = Integer.parseInt(minPrice);
+                    int max = Integer.parseInt(maxPrice);
+                    itemSales = itemSaleRepo.findDistinctByItemProduct_PriceIsBetween(min, max);
+                } else itemSales = itemSaleRepo.findAll();
+            }
+        }
+
+
+        return itemSales;
     }
 }

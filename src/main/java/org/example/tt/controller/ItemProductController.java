@@ -89,7 +89,9 @@ public class ItemProductController {
     }
 
     @GetMapping("/itemproducts")
-    public String getSupplierList(@RequestParam(required = false, defaultValue = "") String nameFilter, Model model) {
+    public String getSupplierList(
+            @RequestParam(required = false, defaultValue = "") String nameFilter,
+            Model model) {
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
         Iterable<ItemProduct> itemProducts = null;

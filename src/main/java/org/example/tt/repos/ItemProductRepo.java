@@ -8,4 +8,5 @@ import java.util.List;
 public interface ItemProductRepo extends CrudRepository<ItemProduct, Long> {
     ItemProduct findItemProductByIdItemProduct(int id);
     List<ItemProduct> findItemProductByNameItemProduct(String name);
+    List<ItemProduct> findDistinctByPriceBetween(int min, int max);
 }
