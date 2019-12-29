@@ -5,15 +5,15 @@
 
     <a href="/" class="navbar-brand">
         <img src="static/icon.png" alt="Магазин игрушек" class="navbar-toggler-icon">
-        <span class="title_menu_icon" class="navbar-toggler" data-toggle="collapse"
+        <span id="nameSite" class="title_menu_icon" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
               aria-expanded="false" aria-label="Toggle navigation">MyToys</span>
     </a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="navig collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a href="/" class="nav-link"> Home </a>
+                <a id="home_item_nav" href="/" class="nav-link" style="color: yellow"> Home </a>
             </li>
 
             <#if isAdmin>

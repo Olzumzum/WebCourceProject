@@ -90,15 +90,15 @@ public class ItemProductController {
 
     @GetMapping("/itemproducts")
     public String getSupplierList(
-            @RequestParam(required = false, defaultValue = "") String nameFilter,
+            @RequestParam(required = false, defaultValue = "") String searchName,
             Model model) {
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
         Iterable<ItemProduct> itemProducts = null;
 
         /** получаем список */
-        if (nameFilter != null && !nameFilter.isEmpty()) {
-            itemProducts = itemProductRepo.findItemProductByNameItemProduct(nameFilter);
+        if (searchName != null && !searchName.isEmpty()) {
+            itemProducts = itemProductRepo.findItemProductByNameItemProduct(searchName);
         } else {
             itemProducts = itemProductRepo.findAll();
         }
