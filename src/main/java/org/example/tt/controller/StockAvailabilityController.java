@@ -78,6 +78,13 @@ public class StockAvailabilityController {
         return "ordersList";
     }
 
+    @GetMapping("/ordersList")
+    public String showOrdersList(Model model){
+        model.addAttribute("message", "");
+        model.addAttribute("orders", orderRepo.findAll());
+        return "ordersList";
+    }
+
     private boolean countingProduct(Order order) {
         StockAvailability stockAbl = stockRepo.
                 findStockAvailabilityByItemProductAndStores(

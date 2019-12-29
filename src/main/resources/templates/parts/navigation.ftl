@@ -25,14 +25,16 @@
                 <li class="nav-item"><a href="/itemproducts" class="nav-link"> Продукция </a></li>
                 <li class="nav-item"><a href="/itemsale" class="nav-link"> Продажи </a></li>
                 <li class="nav-item"><a href="/stockavailability" class="nav-link"> Товар на складе </a></li>
-                <li class="nav-item"><a href="/ordersList" class="nav-link dropdown-toggle" id="navbarDropdown"
-                                        role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Заказы </a></li>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/order"> Добавить заказ </a>
-                    <a class="dropdown-item" href="/ordersList"> Все заказы </a>
-                </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/ordersList" role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false"> Заказы </a>
+
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/order"> Добавить заказ </a>
+                        <a class="dropdown-item" href="/ordersList"> Все заказы </a>
+                    </div>
+                </li>
             </#if>
         </ul>
     </div>

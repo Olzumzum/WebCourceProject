@@ -4,12 +4,12 @@
             <form method="post" enctype="multipart/form-data">
                 <div class="form-row mt-3 mb-1">
                     <label for="nameitemProduct" class="mr-2"> Название продукта </label>
-                    <input id="nameitemProduct" type="text" name="nameitemProduct" class="form-control col-2"/>
+                    <input id="nameitemProduct" type="text" name="nameitemProduct" class="form-control"/>
                 </div>
 
                 <div class="form-row mt-3 mb-1">
                     <label for="price" class="mr-2"> Цена </label>
-                    <input id="price" type="number" name="price" class="form-control col-2"/>
+                    <input id="price" type="number" name="price" class="form-control "/>
                 </div>
 
                 <div class="form-row mt-3 mb-1">
@@ -20,7 +20,7 @@
 
                 <div class="form-row mt-3 mb-1">
                     <label for="suplier" class="mr-2"> Компания поставщик </label>
-                    <select id="suplier" name="supplier" class="form-control col-2 ml-2">
+                    <select id="suplier" name="supplier" class="form-control ml-2">
                         <#list suppliers as supplier>
                             <option value="${supplier.idSupplier}">
                                 ${supplier.nameSupplier}
@@ -31,7 +31,7 @@
 
                 <div class="form-row mt-3 mb-1">
                     <label for="ageCategory" class="mr-2"> Возрастная категория </label>
-                    <select id="ageCategory" name="ageCategory" class="form-control col-2">
+                    <select id="ageCategory" name="ageCategory" class="form-control">
                         <#list agecategories as agecategory>
                             <option>
                                 <b>${agecategory.toString()}</b>

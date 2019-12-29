@@ -25,12 +25,12 @@ public class ItemSaleController {
     @GetMapping("/allChecks")
     public String getAllChecks(Model model,
                                @RequestParam(required = false, defaultValue = "") String searchName,
-                               @RequestParam(required = false, defaultValue = "") String minPrice,
-                               @RequestParam(required = false, defaultValue = "") String maxPrice,
+                               @RequestParam(required = false, defaultValue = "") String minPriceForm,
+                               @RequestParam(required = false, defaultValue = "") String maxPriceForm,
                                @RequestParam(required = false, defaultValue = "") String minAmount,
                                @RequestParam(required = false, defaultValue = "") String maxAmount) {
 
-        Iterable<ItemSale> itemSales = searchByCriterian(searchName, minAmount, maxAmount, minPrice, maxPrice);
+        Iterable<ItemSale> itemSales = searchByCriterian(searchName, minAmount, maxAmount, minPriceForm, maxPriceForm);
 
         model.addAttribute("itemsales", itemSales);
         model.addAttribute("itemproducts", itemProductRepo.findAll());

@@ -3,7 +3,7 @@
 
 <@C.page>
    <div>
-       <table>
+       <table class="table">
            <colgroup>
                <col id="id_order"/>
                <col id="name_product"/>
@@ -12,7 +12,7 @@
            </colgroup>
 
            <thread>
-               <tr>
+               <tr class="bg-warning">
                    <th scope="col"> id заказа</th>
                    <th scope="col"> Название продукта </th>
                    <th scope="col"> Название склада </th>

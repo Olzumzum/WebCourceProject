@@ -2,24 +2,32 @@
 <#import "parts/login.ftl" as l >
 
 <@C.page>
-Список пользоателей
+    Список пользоателей
 
-    <table>
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Role</th>
+            <th scope="col"> id</th>
+            <th scope="col">Имя пользователя</th>
+            <th scope="col"> Роли</th>
+            <th scope="col"> Действия</th>
         </tr>
         </thead>
+        <tbody>
+        <#list users as user>
+            <tr>
+                <th scope="row">${user.id}</th>
+                <td>${user.username}</td>
+                <td class="table-warning"><#list user.roles as role>${role}<#sep>, </#list></td>
+                <td>
+                    <button class=" btn btn-primary">
+                        <a href="/user/${user.id}" style="color: white; text-decoration: none;">
+                            Редактировать</a>
+                    </button>
+                </td>
+            </tr>
+        </#list>
+        </tbody>
     </table>
-    <tbody>
-<#list users as user>
-    <tr>
-        <td>${user.username}</td>
-        <td><#list user.roles as role>${role}<#sep>, </#list></td>
-        <td><a href="/user/${user.id}"> Редактировать</a> </td>
-    </tr>
-</#list>
-    </tbody>
+
 </@C.page>

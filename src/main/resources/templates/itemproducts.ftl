@@ -5,6 +5,7 @@
 <#import "parts/search_name_form.ftl" as search_name>
 <#import "parts/show_all_result.ftl" as show_result>
 <#import "parts/search_by_price.ftl" as search_price>
+<#import "parts/search_age.ftl" as search_age>
 
 <@C.page>
     <div class="row">
@@ -26,6 +27,9 @@
             </div>
             <div class="row">
                 <@show_result.show_all_result "/itemproducts"/>
+            </div>
+            <div class="row">
+                <@search_age.search_age "/itemproducts" />
             </div>
         </div>
     </div>

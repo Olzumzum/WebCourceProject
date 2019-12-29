@@ -4,7 +4,7 @@
 <@C.page>
 
     <div>
-        <table>
+        <table class="table table-hover">
             <colgroup>
                 <col id="store_id">
                 <col id="store_name"/>
@@ -22,7 +22,7 @@
             <tbody>
                 <#list stores as store>
                     <tr>
-                        <td> ${store.idStore}</td>
+                        <td scope="row"> ${store.idStore}</td>
                         <td> ${store.nameStore}</td>
                         <td> ${store.addressStore}</td>
                     </tr>

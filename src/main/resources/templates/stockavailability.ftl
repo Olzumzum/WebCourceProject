@@ -8,7 +8,7 @@
         <a href="/stores"> Подробная инфомрация о складах </a>
     </div>
     <div>
-        <table>
+        <table class="table table-hover mt-4">
             <colgroup>
                 <col id="item_name"/>
                 <col id="store_name"/>
@@ -16,7 +16,7 @@
             </colgroup>
 
             <thread>
-                <tr>
+                <tr class="table-primary">
                     <th scope="col"> Именование товара </th>
                     <th scope="col"> Название склада </th>
                     <th scope="col"> Количество </th>

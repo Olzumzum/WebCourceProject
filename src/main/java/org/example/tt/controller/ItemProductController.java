@@ -91,7 +91,12 @@ public class ItemProductController {
     @GetMapping("/itemproducts")
     public String getSupplierList(
             @RequestParam(required = false, defaultValue = "") String searchName,
+            @RequestParam(required = false, defaultValue = "") String butAge,
+            @RequestParam(required = false, defaultValue = "") String minPriceForm,
+            @RequestParam(required = false, defaultValue = "") String maxPriceForm,
             Model model) {
+
+
         /**получаем список всех поставщиков */
         Iterable<SupplierCompany> supplierCompanies = supplierCompanyRepo.findAll();
         Iterable<ItemProduct> itemProducts = null;
@@ -100,7 +105,21 @@ public class ItemProductController {
         if (searchName != null && !searchName.isEmpty()) {
             itemProducts = itemProductRepo.findItemProductByNameItemProduct(searchName);
         } else {
-            itemProducts = itemProductRepo.findAll();
+            /** поиск по критериям цены */
+            if (minPriceForm != null && !minPriceForm.isEmpty() && maxPriceForm != null && !maxPriceForm.isEmpty()) {
+                int minPrice = Integer.parseInt(minPriceForm);
+                int maxPrice = Integer.parseInt(maxPriceForm);
+                itemProducts = itemProductRepo.findDistinctByPriceBetween(minPrice, maxPrice);
+            } else if (butAge != null && !butAge.isEmpty()) {
+                if (butAge.equals(AgeCategory.SMALL.toString()))
+                    itemProducts = itemProductRepo.findItemProductByAgeCategory(AgeCategory.SMALL.toString());
+                if (butAge.equals(AgeCategory.MEDIUM.toString()))
+                    itemProducts = itemProductRepo.findItemProductByAgeCategory(AgeCategory.MEDIUM.toString());
+                if (butAge.equals(AgeCategory.ELDER.toString()))
+                    itemProducts = itemProductRepo.findItemProductByAgeCategory(AgeCategory.ELDER.toString());
+            } else
+
+                itemProducts = itemProductRepo.findAll();
         }
 
         model.addAttribute("itemproducts", itemProducts);
