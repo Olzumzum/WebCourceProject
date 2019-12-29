@@ -1,3 +1,0 @@
-<#macro addproduct>
-
-</#macro>

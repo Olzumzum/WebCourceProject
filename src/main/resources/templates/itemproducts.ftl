@@ -6,38 +6,38 @@
     <div class="form_search">
         <div> Искать по названию склада</div>
         <form method="get" action="/itemproducts">
-            <input type="text" name="nameFilter" value="${nameFilter?if_exists}" class="search_field"/>
-            <input type="submit" value="Поиск" class="button_search "/>
+            <input type="text" name="nameFilter" value="${nameFilter?if_exists}"/>
+            <input type="submit" value="Поиск"/>
         </form>
     </div>
 
-    <div class="container">
+    <div>
         <#if isAdmin>
-            <div class="add_product">
-                <div id="title_submenu"> Добавить продукт</div>
+            <div>
+                <div> Добавить продукт</div>
                 <form method="post" enctype="multipart/form-data">
 
-                    <div class="row_form">
+                    <div>
                         <label> Название продукта </label>
-                        <input type="text" name="nameitemProduct" class="subparagraph_submenu"/>
+                        <input type="text" name="nameitemProduct"/>
                     </div>
 
-                    <div class="row_form">
+                    <div>
                         <label> Цена </label>
-                        <input type="number" name="price" class="subparagraph_submenu"/>
+                        <input type="number" name="price"/>
                     </div>
 
-                    <div class="row_form">
+                    <div>
                         <label> Изображение</label>
                         <input type="file" name="file"/>
                     </div>
 
-                    <div class="row_form">
+                    <div>
                         <label>
                             <select name="supplier">
                                 <option disabled>Компания поставщик</option>
                                 <#list suppliers as supplier>
-                                    <option value="${supplier.idSupplier}" class="subparagraph_submenu">
+                                    <option value="${supplier.idSupplier}">
                                         ${supplier.nameSupplier}
                                     </option>
                                 </#list>
@@ -45,47 +45,45 @@
                         </label>
                     </div>
 
-                    <div class="row_form">
+                    <div>
                         <label> Возрастная категория </label>
                         <select name="ageCategory">
                             <#list agecategories as agecategory>
-                                <option class="subparagraph_submenu">
+                                <option>
                                     <b>${agecategory.toString()}</b>
                                 </option>
                             </#list>
                         </select>
                     </div>
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                    <input type="submit" value="Отправить" class="button_add_file"/>
+                    <input type="submit" value="Отправить"/>
                 </form>
             </div>
         </#if>
 
-        <div class="content">
+        <div>
             <div> Список всей продукции</div>
             <#list itemproducts as itemProduct>
                 <#if itemProduct.idItemProduct % 2 == 0>
-                    <span style="visibility: hidden">Строчка </span>
+                    <span >Строчка </span>
                 </#if>
-                <div class="item_product">
-                    <div class="content_item_product">
+                <div>
+                    <div>
 
                         <#if isAdmin>
-                            <div class="edit_product">
+                            <div>
                             <span>
-                                <a href="/itemProductEdit/${itemProduct.idItemProduct}"
-                                   class="property_product_item"> Редактировать продукт </a>
+                                <a href="/itemProductEdit/${itemProduct.idItemProduct}"> Редактировать продукт </a>
                             </span>
                                 <span>
-                                <a href="/itemproducts/${itemProduct.idItemProduct}"
-                                   class="property_product_item"> Удалить продукт </a>
+                                <a href="/itemproducts/${itemProduct.idItemProduct}"> Удалить продукт </a>
                             </span>
                             </div>
                         </#if>
 
                         <div>
                             <#if itemProduct.fileName??>
-                                <img class="image_product" src="/img/${itemProduct.fileName}">
+                                <img src="/img/${itemProduct.fileName}">
                             </#if>
                         </div>
                         <div>
@@ -94,7 +92,7 @@
                         </div>
                         <div>
                             <label> Название: </label>
-                            <b class="name_product">${itemProduct.nameItemProduct}</b>
+                            <b>${itemProduct.nameItemProduct}</b>
                         </div>
                         <div>
                             <label> Стоимость: </label>

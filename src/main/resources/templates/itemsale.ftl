@@ -4,7 +4,7 @@
 <#import "parts/add_sale.ftl" as AD>
 
 <@C.page>
-    <div class="container">
+    <div>
         <div>
             <a href="allChecks"> Посмотреть все чеки </a>
         </div>

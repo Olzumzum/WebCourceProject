@@ -2,16 +2,16 @@
 <#import "parts/login.ftl" as l >
 
 <@C.page>
-    <div class="add_product">
-    <div id="title_submenu"> Добавить поставщика</div>
+    <div>
+    <div> Добавить поставщика</div>
     <form method="post" enctype="multipart/form-data">
-        <div class="row_form">
+        <div>
             <label> Название компании </label>
-            <input type="text" name="nameSupplier" class="subparagraph_submenu"/>
+            <input type="text" name="nameSupplier"/>
         </div>
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <input type="submit" value="Сохранить" class="button_add_file"/>
+        <input type="submit" value="Сохранить"/>
     </form>
     </div>
 

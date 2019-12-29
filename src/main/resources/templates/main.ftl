@@ -2,61 +2,60 @@
 <#import "parts/login.ftl" as l >
 
 <@C.page>
-    <div class="form_search">
+    <div>
         <div> Искать по названию склада</div>
         <form method="get" action="/main">
-            <input type="text" name="nameFilter" value="${nameFilter?if_exists}" class="search_field"/>
-            <input type="submit" value="Поиск" class="button_search "/>
+            <input type="text" name="nameFilter" value="${nameFilter?if_exists}"/>
+            <input type="submit" value="Поиск"/>
         </form>
     </div>
 
-    <div class="container">
-        <div class="add_product">
-            <div id="title_submenu"> Добавить продукт</div>
+    <div>
+        <div>
+            <div> Добавить продукт</div>
             <form method="post" enctype="multipart/form-data">
-                <div class="row_form">
+                <div>
                     <label> Название продукта </label>
-                    <input type="text" name="nameStore" class="subparagraph_submenu"/>
+                    <input type="text" name="nameStore"/>
                 </div>
-                <div class="row_form">
+                <div>
                     <label> В данном случае адресс</label>
-                    <input type="text" name="addressStore" class="subparagraph_submenu"/>
+                    <input type="text" name="addressStore"/>
                 </div>
-                <div class="row_form">
+                <div >
                     <label> Изображение</label>
                     <input type="file" name="file"/>
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input type="submit" value="Отправить" class="button_add_file"/>
+                <input type="submit" value="Отправить"/>
             </form>
         </div>
 
-        <div class="content">
+        <div>
             <div> Список складов</div>
             <#list stores as store>
                 <#if store.idStore % 2 == 0>
                     <span style="visibility: hidden">Строчка </span>
                 </#if>
-                <div class="item_product">
-                    <div class="content_item_product">
+                <div>
+                    <div>
 
-                        <div class="edit_product">
+                        <div>
                             <span>
-                                <a href="/product/${store.idStore}"
-                                   class="property_product_item"> Редактировать продукт </a>
+                                <a href="/product/${store.idStore}"> Редактировать продукт </a>
                             </span>
                             <span>
-                                <a href="/product/${store.idStore}" class="property_product_item"> Удалить продукт </a>
+                                <a href="/product/${store.idStore}"> Удалить продукт </a>
                             </span>
                         </div>
 
                         <div>
                             <#if store.filename??>
-                                <img class="image_product" src="/img/${store.filename}">
+                                <img src="/img/${store.filename}">
                             </#if>
                         </div>
                         <b>${store.idStore}</b>
-                        <b class="name_product">${store.nameStore}</b>
+                        <b>${store.nameStore}</b>
                         <b>${store.addressStore}</b>
                     </div>
                 </div>

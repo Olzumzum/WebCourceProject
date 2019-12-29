@@ -1,36 +1,44 @@
 <#include "security.ftl">
 <#import "login.ftl" as l>
 
-<nav>
-    <div class="icon_block">
-        <a href="/">
-            <img src="static/icon.png" alt="Магазин игрушек" class="img_icon_main">
-            <span class="title_menu_icon">MyToys</span>
-        </a>
-    </div>
+<nav class="navbar navbar-expand-lg" style="background-color: #61F013;">
 
-    <div class="top_menu">
-        <ul>
-            <li><a href="/" class="item_nav"> Home </a></li>
-        </ul>
+    <a href="/" class="navbar-brand">
+        <img src="static/icon.png" alt="Магазин игрушек" class="navbar-toggler-icon">
+        <span class="title_menu_icon" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">MyToys</span>
+    </a>
 
-        <ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link"> Home </a>
+            </li>
+
             <#if isAdmin>
-                <li><a href="/user" class="item_nav"> Информация о пользователях</a></li>
-                <li><a href="/suppliercompany" class="item_nav"> Добавить поставщика </a></li>
-                <li><a href="/itemproducts" class="item_nav"> Продукция </a></li>
+                <li class="nav-item"><a href="/user" class="nav-link"> Информация о пользователях</a></li>
+                <li class="nav-item"><a href="/suppliercompany" class="nav-link"> Поставщики </a></li>
+                <li class="nav-item"><a href="/itemproducts" class="nav-link"> Продукция </a></li>
             </#if>
             <#if isUser>
-                <li><a href="/itemproducts" class="item_nav"> Продукция </a></li>
-                <li><a href="/itemsale" class="item_nav"> Продажи </a></li>
-                <li><a href="/stockavailability" class="item_nav"> Товар на складе </a></li>
-                <li><a href="/order" class="item_nav"> Сделать заказ </a></li>
+                <li class="nav-item"><a href="/itemproducts" class="nav-link"> Продукция </a></li>
+                <li class="nav-item"><a href="/itemsale" class="nav-link"> Продажи </a></li>
+                <li class="nav-item"><a href="/stockavailability" class="nav-link"> Товар на складе </a></li>
+                <li class="nav-item"><a href="/ordersList" class="nav-link dropdown-toggle" id="navbarDropdown"
+                                        role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Заказы </a></li>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/order"> Добавить заказ </a>
+                    <a class="dropdown-item" href="/ordersList"> Все заказы </a>
+                </div>
             </#if>
         </ul>
     </div>
 
-    <div class="login_in_nav">
-        <div class="login_nav_username">${name}</div>
+    <div class="form-group row mt-1 mr-4">
+        <div class="navbar-text mr-2">${name}</div>
         <@l.logout />
     </div>
 </nav>
