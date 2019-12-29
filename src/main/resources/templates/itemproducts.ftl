@@ -38,8 +38,9 @@
     <div>
         <div class="row mb-3 "> Список продукции</div>
 
+        <#assign x = 0>
         <#list itemproducts as itemProduct>
-            <#if itemProduct.idItemProduct % 2 != 0>
+            <#if x == 0>
                 <div style="display: flex; flex-direction: row">
             </#if>
 
@@ -87,9 +88,12 @@
                     </div>
                 </div>
             </div>
-            <#if itemProduct.idItemProduct % 2 == 0>
+            <#assign x=x+1>
+            <#if x % 2 == 0 >
                 </div>
+                <#assign x = 0>
             </#if>
+
         <#else>
             В базе нет ни одного продукта
         </#list>
