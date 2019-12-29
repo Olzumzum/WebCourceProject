@@ -11,4 +11,5 @@ public interface ItemProductRepo extends CrudRepository<ItemProduct, Long> {
     List<ItemProduct> findItemProductByNameItemProduct(String name);
     List<ItemProduct> findDistinctByPriceBetween(int min, int max);
     List<ItemProduct> findItemProductByAgeCategory(String ageCategory);
+    List<ItemProduct> findAllByOrderByNameItemProduct();
 }

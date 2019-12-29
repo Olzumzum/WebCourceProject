@@ -94,6 +94,7 @@ public class ItemProductController {
             @RequestParam(required = false, defaultValue = "") String butAge,
             @RequestParam(required = false, defaultValue = "") String minPriceForm,
             @RequestParam(required = false, defaultValue = "") String maxPriceForm,
+            @RequestParam(required = false, defaultValue = "") String sortName,
             Model model) {
 
 
@@ -117,8 +118,9 @@ public class ItemProductController {
                     itemProducts = itemProductRepo.findItemProductByAgeCategory(AgeCategory.MEDIUM.toString());
                 if (butAge.equals(AgeCategory.ELDER.toString()))
                     itemProducts = itemProductRepo.findItemProductByAgeCategory(AgeCategory.ELDER.toString());
+            } else if (sortName != null && !sortName.isEmpty()) {
+                itemProducts = itemProductRepo.findAllByOrderByNameItemProduct();
             } else
-
                 itemProducts = itemProductRepo.findAll();
         }
 

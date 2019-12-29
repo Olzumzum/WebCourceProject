@@ -38,7 +38,7 @@ public class StockAvailabilityController {
     public String showFormAddOrder(Model model) {
         model.addAttribute("itemProductList", itemProductRepo.findAll());
         model.addAttribute("storesList", storesRepo.findAll());
-        model.addAttribute("message","");
+        model.addAttribute("message", "");
         return "order";
     }
 
@@ -79,7 +79,7 @@ public class StockAvailabilityController {
     }
 
     @GetMapping("/ordersList")
-    public String showOrdersList(Model model){
+    public String showOrdersList(Model model) {
         model.addAttribute("message", "");
         model.addAttribute("orders", orderRepo.findAll());
         return "ordersList";
@@ -92,16 +92,21 @@ public class StockAvailabilityController {
                         order.getStores());
 
         int orderAmount = order.getAmount();
-        int stockAmount = stockAbl.getAmountItemProduct();
+        if (stockAbl != null) {
+            int stockAmount = stockAbl.getAmountItemProduct();
 
-        if (orderAmount <= stockAmount) {
-            int totalAmount = stockAmount - orderAmount;
-            if (totalAmount > 0) {
-                stockAbl.setAmountItemProduct(totalAmount);
-                stockRepo.save(stockAbl);
-            } else
-                stockRepo.delete(stockAbl);
-            return true;
-        } else return false;
+
+            if (orderAmount <= stockAmount) {
+                int totalAmount = stockAmount - orderAmount;
+                if (totalAmount > 0) {
+                    stockAbl.setAmountItemProduct(totalAmount);
+                    stockRepo.save(stockAbl);
+                } else
+                    stockRepo.delete(stockAbl);
+                return true;
+
+            } else return false;
+        }
+        return false;
     }
 }
